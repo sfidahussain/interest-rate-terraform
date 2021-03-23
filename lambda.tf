@@ -17,8 +17,17 @@ resource "aws_iam_role" "iam_for_lambda" {
 EOF
 }
 
+#  Lambda Permissions for DynamoDB Policy
+resource "aws_iam_role_policy" "lambda_policy" {
+  name = "lambda_policy"
+  role = aws_iam_role.iam_for_lambda.id
+
+  policy = file("policies/policy.json")
+}
+
 provider "archive" {}
 
+# The following archive functions are to zip up the respective py files for lambda deployment
 data "archive_file" "rate_zip" {
   type        = "zip"
   source_file = "py/rate_processor_function.py"

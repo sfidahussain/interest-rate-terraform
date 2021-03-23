@@ -27,3 +27,6 @@ override.tf.json
 
 # Include tfplan files to ignore the plan output of command: terraform plan -out=tfplan
 # example: *tfplan*
+get_all_rates_processor_function.zip
+get_latest_rate_processor_function.zip
+get_specific_rate_processor_function.zip
