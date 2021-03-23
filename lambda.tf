@@ -84,9 +84,9 @@ resource "aws_lambda_function" "func_all" {
 
 # Get Specific Rate Lambda
 resource "aws_lambda_function" "func_specific" {
-  function_name = "get_specific_rate_processor"
+  function_name = "get_specific_time_rate_processor"
   role          = aws_iam_role.iam_for_lambda.arn
-  handler       = "get_specific_rate_processor_function.lambda_handler"
+  handler       = "get_specific_time_rate_processor_function.lambda_handler"
   filename         = "${data.archive_file.specific_zip.output_path}"
   source_code_hash = "${data.archive_file.specific_zip.output_base64sha256}"
   runtime       = "python3.6"

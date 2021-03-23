@@ -22,8 +22,25 @@ resource "aws_api_gateway_integration" "latest_integration" {
   resource_id             = aws_api_gateway_resource.rate.id
   http_method             = aws_api_gateway_method.latest.http_method
   integration_http_method = "POST"
-  type                    = "AWS_PROXY"
+  type                    = "AWS"
   uri                     = "${aws_lambda_function.func_latest.invoke_arn}"
+}
+
+resource "aws_api_gateway_method_response" "response_latest_200" {
+  rest_api_id = aws_api_gateway_rest_api.api.id
+  resource_id = aws_api_gateway_resource.rate.id
+  http_method = aws_api_gateway_method.latest.http_method
+  status_code = "200"
+}
+
+resource "aws_api_gateway_integration_response" "LatestResponse" {
+  rest_api_id = aws_api_gateway_rest_api.api.id
+  resource_id = aws_api_gateway_resource.rate.id
+  http_method = aws_api_gateway_method.latest.http_method
+  status_code = aws_api_gateway_method_response.response_latest_200.status_code
+  response_templates = {
+    "application/json" = ""
+  }
 }
 
 # 2. Fetch Specific Timestamp Rate
@@ -39,8 +56,25 @@ resource "aws_api_gateway_integration" "specific_integration" {
   resource_id             = aws_api_gateway_resource.rate.id
   http_method             = aws_api_gateway_method.specific.http_method
   integration_http_method = "POST"
-  type                    = "AWS_PROXY"
+  type                    = "AWS"
   uri                     = "${aws_lambda_function.func_specific.invoke_arn}"
+}
+
+resource "aws_api_gateway_method_response" "response_specific_200" {
+  rest_api_id = aws_api_gateway_rest_api.api.id
+  resource_id = aws_api_gateway_resource.rate.id
+  http_method = aws_api_gateway_method.specific.http_method
+  status_code = "200"
+}
+
+resource "aws_api_gateway_integration_response" "SpecificResponse" {
+  rest_api_id = aws_api_gateway_rest_api.api.id
+  resource_id = aws_api_gateway_resource.rate.id
+  http_method = aws_api_gateway_method.specific.http_method
+  status_code = aws_api_gateway_method_response.response_specific_200.status_code
+  response_templates = {
+    "application/json" = ""
+  }
 }
 
 # 3. Fetch All Rates
@@ -62,8 +96,25 @@ resource "aws_api_gateway_integration" "all_integration" {
   resource_id             = aws_api_gateway_resource.all.id
   http_method             = aws_api_gateway_method.all.http_method
   integration_http_method = "POST"
-  type                    = "AWS_PROXY"
+  type                    = "AWS"
   uri                     = "${aws_lambda_function.func_all.invoke_arn}"
+}
+
+resource "aws_api_gateway_method_response" "response_all_200" {
+  rest_api_id = aws_api_gateway_rest_api.api.id
+  resource_id = aws_api_gateway_resource.all.id
+  http_method = aws_api_gateway_method.all.http_method
+  status_code = "200"
+}
+
+resource "aws_api_gateway_integration_response" "AllResponse" {
+  rest_api_id = aws_api_gateway_rest_api.api.id
+  resource_id = aws_api_gateway_resource.all.id
+  http_method = aws_api_gateway_method.all.http_method
+  status_code = aws_api_gateway_method_response.response_all_200.status_code
+  response_templates = {
+    "application/json" = ""
+  }
 }
 
 # Lambda Permissions for API Gateway Endpoints
