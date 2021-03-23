@@ -19,10 +19,12 @@ After the following commands you will see the following services initialized:
 
 | URL | Sample Input | 
 | --- | ------------ | 
-| API Gateway -> GET /all  | Run this in API Gateway to see a list of all uploaded rates. | 
-| API Gateway -> GET /rate | Run this in API Gateway to see the latest upload rate. | 
+| API Gateway -> GET /all  | Test this in API Gateway to see a list of all uploaded rates. (Only need to click test, no parameters needed) | 
+| API Gateway -> GET /rate | Run this in API Gateway to see the latest upload rate. (Only need to click test, no parameters needed) | 
 | API Gateway -> POST /rate | Run this in API Gateway to get a record with a specified timestamp. Use this as a reference to put in the Request Body `{"timestamp":"2019-03-29"}` |
-| S3 Bucket | Upload .json with content like this and make sure to set this to publicly available: 
+| S3 Bucket | Upload .json with content like this and make sure to set this to publicly available: (This is also in the repo as reference as transaction.json) 
+<img width="673" alt="Screen Shot 2021-03-22 at 10 51 58 PM" src="https://user-images.githubusercontent.com/6472383/112097339-d2d80280-8b6d-11eb-882a-f0648a4d8e33.png">
+
 ```json
 {
     "transactions": [
