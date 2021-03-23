@@ -7,7 +7,7 @@
 #  files to archival after a certain amount of days.
 
 resource "aws_s3_bucket" "bucket" {
-  bucket = "rate-upload"
+  bucket = "rate-upload-1"
   acl    = "public-read-write"
 
   lifecycle_rule {
