@@ -41,6 +41,9 @@ resource "aws_api_gateway_integration_response" "LatestResponse" {
   response_templates = {
     "application/json" = ""
   }
+  depends_on = [
+    aws_api_gateway_integration.latest_integration
+  ]
 }
 
 # 2. Fetch Specific Timestamp Rate
@@ -75,6 +78,9 @@ resource "aws_api_gateway_integration_response" "SpecificResponse" {
   response_templates = {
     "application/json" = ""
   }
+  depends_on = [
+    aws_api_gateway_integration.specific_integration
+  ]
 }
 
 # 3. Fetch All Rates
@@ -115,6 +121,10 @@ resource "aws_api_gateway_integration_response" "AllResponse" {
   response_templates = {
     "application/json" = ""
   }
+
+  depends_on = [
+    aws_api_gateway_integration.all_integration
+  ]
 }
 
 # Lambda Permissions for API Gateway Endpoints
