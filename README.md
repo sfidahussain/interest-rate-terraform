@@ -20,7 +20,7 @@ After the following commands you will see the following services initialized:
 | API Gateway -> GET /all  | Run this in API Gateway to see a list of all uploaded rates. | 
 | API Gateway -> GET /rate | Run this in API Gateway to see the latest upload rate. | 
 | API Gateway -> POST /rate | Run this in API Gateway to get a record with a specified timestamp. Use this as a reference to put in the Request Body `{"timestamp":"2019-03-29"}` |
-| S3 Bucket | Upload .json with content like this: 
+| S3 Bucket | Upload .json with content like this and make sure to set this to publicly available: 
 ```json
 {
     "transactions": [
