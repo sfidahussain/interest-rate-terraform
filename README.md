@@ -6,6 +6,7 @@ Configuration in this directory creates a set of resources for a user uploading 
 ```terraform
 terraform init
 terraform apply
+terraform destroy
 ```
 
 ## Workflow
