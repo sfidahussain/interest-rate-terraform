@@ -33,10 +33,10 @@ resource "aws_s3_bucket_notification" "bucket_notification" {
   bucket = aws_s3_bucket.bucket.id
 
   lambda_function {
-    lambda_function_arn = aws_lambda_function.func1.arn
+    lambda_function_arn = aws_lambda_function.func_upload.arn
     events              = ["s3:ObjectCreated:Put"]
     filter_suffix       = ".json"
   }
 
-  depends_on = [aws_lambda_permission.allow_bucket1]
+  depends_on = [aws_lambda_permission.allow_bucket_upload]
 }

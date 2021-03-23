@@ -43,41 +43,18 @@ data "archive_file" "specific_zip" {
   output_path = "get_specific_time_rate_processor_function.zip"
 }
 
-resource "aws_lambda_permission" "allow_bucket1" {
+resource "aws_lambda_permission" "allow_bucket_upload" {
   statement_id  = "AllowExecutionFromS3Bucket"
   action        = "lambda:InvokeFunction"
-  function_name = aws_lambda_function.func1.arn
+  function_name = aws_lambda_function.func_upload.arn
   principal     = "s3.amazonaws.com"
   source_arn    = aws_s3_bucket.bucket.arn
 }
 
-resource "aws_lambda_permission" "allow_bucket2" {
-  statement_id  = "AllowExecutionFromS3Bucket"
-  action        = "lambda:InvokeFunction"
-  function_name = aws_lambda_function.func2.arn
-  principal     = "s3.amazonaws.com"
-  source_arn    = aws_s3_bucket.bucket.arn
-}
-
-resource "aws_lambda_permission" "allow_bucket3" {
-  statement_id  = "AllowExecutionFromS3Bucket"
-  action        = "lambda:InvokeFunction"
-  function_name = aws_lambda_function.func3.arn
-  principal     = "s3.amazonaws.com"
-  source_arn    = aws_s3_bucket.bucket.arn
-}
-
-resource "aws_lambda_permission" "allow_bucket4" {
-  statement_id  = "AllowExecutionFromS3Bucket"
-  action        = "lambda:InvokeFunction"
-  function_name = aws_lambda_function.func4.arn
-  principal     = "s3.amazonaws.com"
-  source_arn    = aws_s3_bucket.bucket.arn
-}
 # Rate Processor Lambda
 # This is what parses a file once it is uploaded to the S3 Bucket
 # And inserts the records in a Dynamo DB Table
-resource "aws_lambda_function" "func1" {
+resource "aws_lambda_function" "func_upload" {
   function_name = "rate_processor"
   role          = aws_iam_role.iam_for_lambda.arn
   handler       = "rate_processor_function.lambda_handler"
@@ -87,7 +64,7 @@ resource "aws_lambda_function" "func1" {
 }
 
 # Get All Rates Lambda
-resource "aws_lambda_function" "func2" {
+resource "aws_lambda_function" "func_all" {
   function_name = "get_all_rates_processor"
   role          = aws_iam_role.iam_for_lambda.arn
   handler       = "get_all_rates_processor_function.lambda_handler"
@@ -97,7 +74,7 @@ resource "aws_lambda_function" "func2" {
 }
 
 # Get Specific Rate Lambda
-resource "aws_lambda_function" "func3" {
+resource "aws_lambda_function" "func_specific" {
   function_name = "get_specific_rate_processor"
   role          = aws_iam_role.iam_for_lambda.arn
   handler       = "get_specific_rate_processor_function.lambda_handler"
@@ -107,7 +84,7 @@ resource "aws_lambda_function" "func3" {
 }
 
 # Get Latest Rate Lambda
-resource "aws_lambda_function" "func4" {
+resource "aws_lambda_function" "func_latest" {
   function_name = "get_latest_rate_processor"
   role          = aws_iam_role.iam_for_lambda.arn
   handler       = "get_latest_rate_processor_function.lambda_handler"

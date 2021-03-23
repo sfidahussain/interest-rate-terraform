@@ -16,11 +16,29 @@ resource "aws_api_gateway_method" "latest" {
   authorization = "NONE"
 }
 
+resource "aws_api_gateway_integration" "latest_integration" {
+  rest_api_id             = aws_api_gateway_rest_api.api.id
+  resource_id             = aws_api_gateway_resource.rate.id
+  http_method             = aws_api_gateway_method.latest.http_method
+  integration_http_method = "POST"
+  type                    = "AWS_PROXY"
+  uri                     = "${aws_lambda_function.func_latest.invoke_arn}"
+}
+
 resource "aws_api_gateway_method" "specific" {
   rest_api_id   = aws_api_gateway_rest_api.api.id
   resource_id   = aws_api_gateway_resource.rate.id
   http_method   = "POST"
   authorization = "NONE"
+}
+
+resource "aws_api_gateway_integration" "specific_integration" {
+  rest_api_id             = aws_api_gateway_rest_api.api.id
+  resource_id             = aws_api_gateway_resource.rate.id
+  http_method             = aws_api_gateway_method.specific.http_method
+  integration_http_method = "POST"
+  type                    = "AWS_PROXY"
+  uri                     = "${aws_lambda_function.func_specific.invoke_arn}"
 }
 
 resource "aws_api_gateway_resource" "all" {
@@ -34,4 +52,13 @@ resource "aws_api_gateway_method" "all" {
   resource_id   = aws_api_gateway_resource.all.id
   http_method   = "GET"
   authorization = "NONE"
+}
+
+resource "aws_api_gateway_integration" "all_integration" {
+  rest_api_id             = aws_api_gateway_rest_api.api.id
+  resource_id             = aws_api_gateway_resource.all.id
+  http_method             = aws_api_gateway_method.all.http_method
+  integration_http_method = "POST"
+  type                    = "AWS_PROXY"
+  uri                     = "${aws_lambda_function.func_all.invoke_arn}"
 }
